@@ -24,6 +24,9 @@ const SplashScreen = () => {
   const moveLogo = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   const moveTitle = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
 
+  // Animating content ...
+  const contentTransition = useRef(new Animated.Value(Dimensions.get('window').height)).current;
+
   useEffect(() => {
 
     // Starting Animation after 500ms...
@@ -61,6 +64,11 @@ const SplashScreen = () => {
             // since image size is 100
             y: (Dimensions.get('window').height / 2) - 90,
           },
+          useNativeDriver: true,
+        }),
+        Animated.timing(contentTransition, {
+          // move to center...
+          toValue: 0,
           useNativeDriver: true,
         }),
       ]).start();
@@ -123,6 +131,9 @@ const SplashScreen = () => {
         bottom: 0,
         backgroundColor: 'rgba(0,0,0,0.04))',
         zIndex: 0,
+        transform: [
+          { translateY: contentTransition }
+        ],
       }}>
         <Home />
       </Animated.View>
