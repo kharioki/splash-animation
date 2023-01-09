@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react'
-import { Animated, Dimensions, Image, StyleSheet, Text, View } from 'react-native'
+import { Animated, Dimensions, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // Logo...
 import Logo from '../assets/fedora.png'
+import Home from './Home'
 
 const BG_COLOR = '#4d4a95'
 
@@ -69,49 +70,64 @@ const SplashScreen = () => {
 
   // Going to move up like Nav Bar...
   return (
-    <Animated.View style={{
+    <View style={{
       position: 'absolute',
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: BG_COLOR,
-      transform: [
-        { translateY: startAnimation }
-      ],
     }}>
       <Animated.View style={{
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: BG_COLOR,
+        zIndex: 1,
+        transform: [
+          { translateY: startAnimation }
+        ],
       }}>
-        <Animated.Image source={Logo} style={{
-          width: 100,
-          height: 100,
-          marginBottom: 20,
-          transform: [
-            { translateX: moveLogo.x },
-            { translateY: moveLogo.y },
-            { scale: scaleLogo }
-          ],
-        }} />
+        <Animated.View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Animated.Image source={Logo} style={{
+            width: 100,
+            height: 100,
+            marginBottom: 20,
+            transform: [
+              { translateX: moveLogo.x },
+              { translateY: moveLogo.y },
+              { scale: scaleLogo }
+            ],
+          }} />
 
-        <Animated.Text style={{
-          color: 'white',
-          fontSize: 20,
-          fontWeight: 'bold',
-          transform: [
-            { translateX: moveTitle.x },
-            { translateY: moveTitle.y },
-            { scale: scaleTitle }
-          ],
-        }}>Fedora</Animated.Text>
+          <Animated.Text style={{
+            color: 'white',
+            fontSize: 20,
+            fontWeight: 'bold',
+            transform: [
+              { translateX: moveTitle.x },
+              { translateY: moveTitle.y },
+              { scale: scaleTitle }
+            ],
+          }}>Fedora</Animated.Text>
 
+        </Animated.View>
       </Animated.View>
-    </Animated.View>
+
+      <Animated.View style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.04))',
+        zIndex: 0,
+      }}>
+        <Home />
+      </Animated.View>
+    </View>
   )
 }
 
 export default SplashScreen
-
-const styles = StyleSheet.create({})
